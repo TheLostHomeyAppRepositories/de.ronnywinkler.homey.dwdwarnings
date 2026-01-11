@@ -138,5 +138,9 @@
   "1.2.0": {
     "en": "Updated new warncell list.",
     "de": "Warncell-Liste aktualisiert."
+  },
+  "1.2.1": {
+    "en": "The warning type is now taken from the highest level warning.",
+    "de": "Warntyp wird nun aus der WQarnung mit höchster Stufe übernommen."
   }
 }

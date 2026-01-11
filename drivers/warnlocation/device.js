@@ -243,7 +243,7 @@ class warnlocationDevice extends Device {
             //this.setCapabilityValue("measure_highest_level", this.getWarningLevelByECII(warningList[0].properties.EC_II));
             this.setCapabilityValue("measure_highest_level", this.getHighestWarningLevel(warningList));
             // this.log("setCapabilityValue: measure_type:" + warningList[0].event);
-            this.setCapabilityValue("measure_type", warningList[0].properties.EVENT);
+            this.setCapabilityValue("measure_type", this.getHighestWarningType(warningList)); //warningList[0].properties.EVENT);
             // this.log("setCapabilityValue: measure_number_of_warnings:" + warningList.length);
             if (warningList.length > 0){
               this.setCapabilityValue("measure_number_of_warnings", warningList.length);
@@ -333,6 +333,18 @@ class warnlocationDevice extends Device {
         }
       }
       return warningLevel;
+    }
+
+    getHighestWarningType(warningList){
+      let warningLevel = 0;
+      let warningType = '';
+      for(let i=0; i < warningList.length; i++ ){
+        if (warningLevel < this.getWarningLevelByECII(warningList[i].properties.EC_II) ){
+          warningLevel = this.getWarningLevelByECII(warningList[i].properties.EC_II);
+          warningType = warningList[i].properties.EVENT;
+        }
+      }
+      return warningType;
     }
 
     /**

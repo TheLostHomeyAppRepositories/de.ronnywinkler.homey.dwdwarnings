@@ -1,8 +1,3 @@
-if (process.env.DEBUG === '1')
-{
-    require('inspector').open(9222, '0.0.0.0', true);
-}
-
 'use strict';
 
 const Homey = require('homey');
@@ -25,6 +20,18 @@ class dwdWarnApp extends Homey.App {
    */
   async onInit() {
     this.log('DWD-WarnApp has been initialized');
+
+    if (process.env.DEBUG === '1') {
+      if (this.homey.platform == "local") {
+        try {
+          require('inspector').waitForDebugger();
+        }
+        catch (error) {
+          require('inspector').open(9911, '0.0.0.0', true);
+        }
+      }
+    }
+
     // Eventhandler
     this.events = new EventEmitter();
     // app settings stores in class attribute
